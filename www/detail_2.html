@@ -1,0 +1,106 @@
+<ons-page style="background-color:#FFFFFF">
+    <div ng-controller="DetailController">
+<!--
+        <ons-toolbar class="ripple" modifier="material"  style="background-color:#2196F3;">
+            <div class="left">
+                <ons-back-button class="center" onClick="myNavigator.popPage()">
+                <i style="text-align:center;" class="fa fa-chevron-left bar-icons"></i>
+                </ons-back-button>
+-->
+<!--
+                <ons-ripple onClick="myNavigator.popPage()"></ons-ripple>
+-->
+<!--
+            </div>
+            <div class="center" id="bar-text"></div>
+            <div class="right">
+                <i class="fa fa-pencil bar-icons" onClick="myNavigator.popPage()"></i>
+                <i class="fa fa-trash bar-icons"></i>
+                <i class="fa fa-bars bar-icons"></i>
+            </div>
+        </ons-toolbar>
+-->
+        <div class="nav-bar-detail flexible-color" id="fuck" style="background-color:#4DB6AC;color:#FFFFFF">
+            <div class="navigation-bar__left flexible-color">
+                <i onClick="backToList()" style="text-align:center;font-size:30px;" class="fa fa-arrow-left bar-icons"></i>
+            </div>
+            <div class="navigation-bar__center"></div>
+            <div class="navigation-bar__right"></div>
+        </div>
+
+        <div class="box-under-shadow flexible-color" id="fuck" style="width:100%;background-color:#4DB6AC;">
+                <img src="{{item.imgurl}}" class="detail-pict flexible-color"><br>
+        </div>
+        <ul class="list list--noborder" style="margin-top:10px">
+            <li class="list__item">
+                <span class="list__item__line-height">
+                    <div class="list-title">書籍名</div>
+                    <div class="list-content">{{item.name}}</div>
+                </span>
+            </li>
+            <li class="list__item">
+                <span class="list__item__line-height">
+                    <div class="list-title">著書</div>
+                    <div class="list-content">{{item.author}}</div>
+                </span>
+            </li>
+            <li class="list__item">
+                <span class="list__item__line-height">
+                    <div class="list-title">メモ</div>
+                    <div class="list-content">{{item.memo}}</div>
+                </span>
+            </li>
+            <li>
+                <div class="toggle menu" onClick="menuOpen()" style="text-align:center;"><i class="fa fa-angle-double-down" style="font-size:40px;color:#ccc;text-align:center;"></i></div>
+                <ul class="inner child">
+                    <li class="list__item">
+                        <span class="list__item__line-height">
+                            <div class="list-title">出版社</div>
+                            <div class="list-content">{{item.publisherName}}</div>
+                        </span>
+                    </li>
+                    <li class="list__item">
+                        <span class="list__item__line-height">
+                            <div class="list-title">発売日</div>
+                            <div class="list-content">{{item.salesDate}}</div>
+                        </span>
+                    </li>
+                    <li class="list__item">
+                        <span class="list__item__line-height">
+                            <div class="list-title">商品説明</div>
+                            <div class="list-content">{{item.itemCaption}}</div>
+                        </span>
+                    </li>
+                    <li class="list__item">
+                        <span class="list__item__line-height">
+                            <div class="list-title">商品URL</div>
+                            <div class="list-content"><a href="#" ng-click="browserJamp()">クリックで楽天Booksへジャンプ</a></div>
+                        </span>
+                    </li>
+                    <li class="list__item">
+                        <span class="list__item__line-height">
+                            <div class="list-title">レビュ平均点数（{{item.reviewCount}}件）</div>
+                            <div class="list-content">{{item.reviewAverage}}</div>
+                        </span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="float-dial">
+        <ons-speed-dial direction="right">
+            <ons-ripple onClick="dialChange()"></ons-ripple>
+            <div class="relative" id="" class="flexible-color" style="background-color:#4DB6AC;border-style: solid;border-color:#4DB6AC">
+                <div class="dial-plus"><ons-icon id="dial-icon-parent" icon="fa-plus" ></ons-icon></div>
+            </div>
+            <ons-speed-dial-item class="flexible-color" style="background-color:#4DB6AC">
+                <ons-ripple></ons-ripple>
+                <ons-icon class="dial-icon-item" icon="fa-pencil"></ons-icon>
+            </ons-speed-dial-item>
+            <ons-speed-dial-item class="flexible-color" style="background-color:#4DB6AC">
+                <ons-ripple></ons-ripple>
+                <ons-icon class="dial-icon-item" icon="fa-trash-o"></ons-icon>
+            </ons-speed-dial-item>
+        </ons-speed-dial>
+    </div>
+</ons-page>

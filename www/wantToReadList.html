@@ -1,0 +1,75 @@
+<ons-page >
+    <ons-toolbar modifier="material" class="flexible-color"style="background-color:#2196F3;">
+        <div class="center" id="bar-text">読みたいリスト</div>
+        <div class="right bar-icon" id=""><i onClick="changeList()" class="fa fa-table"></i></div>
+    </ons-toolbar>
+    
+    <div ng-controller="AppController">
+    <!--
+        <ons-carousel swipeable overscrollable auto-scroll fullscreen id="carousel" >
+            <ons-carousel-item class='blue'>
+    -->
+                <div class="item-label list-disp">
+                    <ul class="list">
+                        <li ng-repeat="data in testdata" class="list__item list__item--tappable list__item__line-height" ng-click="showDetail($index,1)">
+                            <img class="book-pict" src="{{data.imgurl}}">
+                            <div class="book-summary">
+                                <div class="book-title">{{data.name}}</div>
+                                <div class="book-author">{{data.author}}</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pict-disp">
+                    <ul>
+                        <li ng-repeat="data in testdata" class="pict-disp-image" ng-click="showDetail($index,1)">
+                        <!--<img class="" src="{{data.imgurl}}">-->
+                            <div class="imagetag" ng-style="{'background-image':'url({{data.imgurl}})'}"></div>
+                        </li>
+                    </ul>
+                </div>
+    <!--
+            </ons-carousel-item>
+            <ons-carousel-item class='green'>
+                <div class="item-label">
+                    <ul class="list">
+                        <li ng-repeat="data in testdata" class="list__item list__item--tappable list__item__line-height" ng-click="showDetail($index)">
+                            <img class="book-pict" src="{{data.imgurl}}">
+                            <div class="book-summary">
+                                <div class="book-title">{{data.name}}</div>
+                                <div class="book-author">{{data.author}}</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </ons-carousel-item>
+        </ons-carousel>
+    -->
+        <div class="float-dial">
+            <ons-speed-dial direction="right">
+                <ons-ripple onClick="dialChange()"></ons-ripple>
+                <div class="relative" id="dial-icon-parent-color" class="flexible-color" style="background-color:#2196F3;border-style: solid;border-color:#2196F3">
+                    <div class="dial-plus"><ons-icon id="dial-icon-parent" icon="fa-plus" ></ons-icon></div>
+                </div>
+                <ons-speed-dial-item class="flexible-color" style="background-color:#2196F3">
+                    <ons-ripple></ons-ripple>
+                    <ons-icon class="dial-icon-item" icon="fa-camera"></ons-icon>
+                </ons-speed-dial-item>
+                <ons-speed-dial-item class="flexible-color" style="background-color:#2196F3" ng-click="scanBarcode()">
+                    <ons-ripple></ons-ripple>
+                    <ons-icon class="dial-icon-item" ><span class="icon-barcode"></span></ons-icon>
+                </ons-speed-dial-item>
+                <ons-speed-dial-item class="flexible-color" style="background-color:#2196F3" ng-click="myNavigator.pushPage('search.html');">
+                    <ons-ripple></ons-ripple>
+                    <ons-icon class="dial-icon-item" icon="fa-search"></ons-icon>
+                </ons-speed-dial-item>
+                <ons-speed-dial-item class="flexible-color" style="background-color:#4DB6AC" ng-Click="jampToHaveRead()">
+                    <ons-ripple></ons-ripple>
+                    <ons-icon class="dial-icon-item" icon="fa-exchange"></ons-icon>
+                </ons-speed-dial-item>
+            </ons-speed-dial>
+        </div>
+
+    </script>
+    </div>
+</ons-page>
