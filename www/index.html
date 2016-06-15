@@ -16,12 +16,13 @@
     <script src="./lib/onsenui/js/onsenui.js"></script>
     <script src="./lib/onsenui/js/angular-onsenui.js"></script>
     <script src="./js/jquery-2.2.0.min.js"></script>
+    <script src="./config/config.js"></script>
     <!-- CSS -->
     <link rel="stylesheet" href="lib/onsenui/css/onsenui.css" type="text/css" media="all" />
     <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css" type="text/css" media="all" />
     <link rel="stylesheet" href="./css/style-main.css" type="text/css" media="all" />
 
-    <script> 
+    <script>
 
     // carousel管理フラグ(1:読みたい、2:読んだ)
     // TODO:各carouselの隠れ値から判別する
@@ -179,26 +180,6 @@
         }
 
     });
-    
-    // function scanBarcode() {
-    //     window.plugins.barcodeScanner.scan( function(result) {
-    //             // alert("We got a barcode\n" +
-    //             //           "Result: " + result.text + "\n" +
-    //             //           "Format: " + result.format + "\n" +
-    //             //           "Cancelled: " + result.cancelled);
-    //             $.get("https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522",
-    //               { applicationId: "1013102338996637364", isbnjan: result.text },
-    //               function(data){
-    //                 //リクエストが成功した際に実行する関数
-    //                 // alert("Data Loaded: " + data.Items[0].Item.title + "/" + data.Items[0].Item.author);
-    //                 $scope.testdata.push({name:"a",author:"b"});
-    //               }
-    //             );
-    //         }, function(error) {
-    //             alert("Scanning failed: " + error);
-    //         }
-    //     );
-    // }
     
     function dialChange(){
         if(dialPlus === true){
