@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="./css/style-main.css" type="text/css" media="all" />
 
     <script>
-
+    console.log('======= request start ========');
     // carousel管理フラグ(1:読みたい、2:読んだ)
     // TODO:各carouselの隠れ値から判別する
     var carouselId = 1;
@@ -31,38 +31,124 @@
     var dialPlus = true;
     var dialPlusDetail = true;
     var listDisp = true;
+    var testdata;
+    var jsonString;
 
-    // AnglerJSバインドテスト
-    // TODO:データの永続化
-    var testdata = [{itemCaption:"商品説明だよだよ",memo:"めもめも",reviewCount:"4",reviewAverage:"4.2",itemUrl:"http://item.rakuten.co.jp/book/13260394/",itemPrice:"1,000",salesDate:"2015/1/1",publisherName:"光文社",name:"クラウドではじめる機械学習",author:"杉山雅和",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/9922/9784897979922.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11753651/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"リーダブルコード",author:"ダスティン・ボズウェル/トレバー・フォシェ",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5658/9784873115658.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11581932/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"マスタリングTCP／IP（入門編）第5版",author:"竹下隆史",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/guruguru2/cabinet/b/8/768/9784274068768.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/13535327/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"なれる！SE（14）",author:"夏海公司",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6627/9784048656627.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/12786112/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"システムインテグレーション崩壊",author:"斎藤昌義",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5226/9784774165226.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよ",memo:"めもめも",reviewCount:"4",reviewAverage:"4.2",itemUrl:"http://books.rakuten.co.jp/rb/12746869/",itemPrice:"1,000",salesDate:"2015/1/1",publisherName:"光文社",name:"AngularJSアプリケーション開発ガイド",author:"ブラッド・グリーン/シヤム・セシャドリ",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6679/9784873116679.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11753651/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"失恋、旅行、パリ。 桐谷美玲ファースト写真集",author:"桐谷美玲",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1494/9784062191494.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11753651/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"Love Scenes",author:"篠崎愛",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0964/9784096820964.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよ",memo:"めもめも",reviewCount:"4",reviewAverage:"4.2",itemUrl:"http://item.rakuten.co.jp/book/13260394/",itemPrice:"1,000",salesDate:"2015/1/1",publisherName:"光文社",name:"アジャイルサムライ",author:"ジョナサン・ラスマセン/西村直人",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/8560/9784274068560.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11753651/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"リーダブルコード",author:"ダスティン・ボズウェル/トレバー・フォシェ",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5658/9784873115658.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11581932/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"マスタリングTCP／IP（入門編）第5版",author:"竹下隆史",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/guruguru2/cabinet/b/8/768/9784274068768.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/13535327/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"なれる！SE（14）",author:"夏海公司",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6627/9784048656627.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/12786112/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"システムインテグレーション崩壊",author:"斎藤昌義",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5226/9784774165226.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよ",memo:"めもめも",reviewCount:"4",reviewAverage:"4.2",itemUrl:"http://books.rakuten.co.jp/rb/12746869/",itemPrice:"1,000",salesDate:"2015/1/1",publisherName:"光文社",name:"AngularJSアプリケーション開発ガイド",author:"ブラッド・グリーン/シヤム・セシャドリ",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6679/9784873116679.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11753651/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"失恋、旅行、パリ。 桐谷美玲ファースト写真集",author:"桐谷美玲",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1494/9784062191494.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11753651/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"Love Scenes",author:"篠崎愛",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0964/9784096820964.jpg?_ex=200x200"},
-        {itemCaption:"商品説明だよだよだよだよ",memo:"めもめもめも",reviewCount:"21",reviewAverage:"5.0",itemUrl:"http://item.rakuten.co.jp/book/11753651/",itemPrice:"2,000",salesDate:"2012/1/1",publisherName:"講談社",name:"リーダブルコード",author:"ダスティン・ボズウェル/トレバー・フォシェ",imgurl:"http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5658/9784873115658.jpg?_ex=200x200"}
-    ];
-                
-    var module = ons.bootstrap('my-app', ['onsen']);
-    module.controller('AppController', function($scope) { 
-        // リストのバインド
-        $scope.testdata = testdata;
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        // window.alert("Create a database and display the content");  
+    }
+    
+    function setData(temp){
+        testdata = temp;
+    }
         
+    var module = ons.bootstrap('my-app', ['onsen']);　
+    module.controller('AppController', function($scope) {
+        // DB生成
+        var createDatabase = function(){
+            return new Promise(function(resolve, reject) {
+                setTimeout(function(){
+                    console.log('Start createDatabase');
+                    var db = window.openDatabase("Database", "1.0", "TestDatabase", 200000);
+                    if(db.version == ""){
+                        console.log('not exist db');
+                        // DB無いので作ります
+                        db.transaction(
+                            function(tx){
+                                tx.executeSql('DROP TABLE IF EXISTS TestTable');
+                                tx.executeSql('CREATE TABLE IF NOT EXISTS TestTable (id unique, itemCaption, memo, reviewCount, reviewAverage, itemUrl, itemPrice, salesDate, publisherName, name,author, imgurl)');                            
+                                
+                                // テストデータを叩き込む
+                                tx.executeSql('INSERT INTO TestTable VALUES (1,"商品説明だよだよ１","めもめも１",4,4.2,"http://item.rakuten.co.jp/book/13260394/",1000,"42005","光文社１","クラウドではじめる機械学習","杉山雅和","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/9922/9784897979922.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (2,"商品説明だよだよ２","めもめも２",21,5,"http://item.rakuten.co.jp/book/11753651/",2000,"40909","光文社２","リーダブルコード","ダスティン・ボズウェル/トレバー・フォシェ","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5658/9784873115658.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (3,"商品説明だよだよ３","めもめも３",21,5,"http://item.rakuten.co.jp/book/11581932/",2000,"40909","光文社３","マスタリングTCP／IP（入門編）第5版","竹下隆史","http://thumbnail.image.rakuten.co.jp/@0_mall/guruguru2/cabinet/b/8/768/9784274068768.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (4,"商品説明だよだよ４","めもめも４",21,5,"http://item.rakuten.co.jp/book/13535327/",2000,"40909","光文社４","なれる！SE（14）","夏海公司","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6627/9784048656627.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (5,"商品説明だよだよ５","めもめも５",21,5,"http://item.rakuten.co.jp/book/12786112/",2000,"40909","光文社５","システムインテグレーション崩壊","斎藤昌義","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5226/9784774165226.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (6,"商品説明だよだよ６","めもめも６",4,4.2,"http://books.rakuten.co.jp/rb/12746869/",1000,"42005","光文社６","AngularJSアプリケーション開発ガイド","ブラッド・グリーン/シヤム・セシャドリ","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6679/9784873116679.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (7,"商品説明だよだよ７","めもめも７",21,5,"http://item.rakuten.co.jp/book/11753651/",2000,"40909","光文社７","失恋、旅行、パリ。 桐谷美玲ファースト写真集","桐谷美玲","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1494/9784062191494.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (8,"商品説明だよだよ８","めもめも８",21,5,"http://item.rakuten.co.jp/book/11753651/",2000,"40909","光文社８","Love Scenes","篠崎愛","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0964/9784096820964.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (9,"商品説明だよだよ９","めもめも９",4,4.2,"http://item.rakuten.co.jp/book/13260394/",1000,"42005","光文社９","アジャイルサムライ","ジョナサン・ラスマセン/西村直人","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/8560/9784274068560.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (10,"商品説明だよだよ１０","めもめも１０",21,5,"http://item.rakuten.co.jp/book/11753651/",2000,"40909","光文社１０","リーダブルコード","ダスティン・ボズウェル/トレバー・フォシェ","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5658/9784873115658.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (11,"商品説明だよだよ１１","めもめも１１",21,5,"http://item.rakuten.co.jp/book/11581932/",2000,"40909","光文社１１","マスタリングTCP／IP（入門編）第5版","竹下隆史","http://thumbnail.image.rakuten.co.jp/@0_mall/guruguru2/cabinet/b/8/768/9784274068768.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (12,"商品説明だよだよ１２","めもめも１２",21,5,"http://item.rakuten.co.jp/book/13535327/",2000,"40909","光文社１２","なれる！SE（14）","夏海公司","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6627/9784048656627.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (13,"商品説明だよだよ１３","めもめも１３",21,5,"http://item.rakuten.co.jp/book/12786112/",2000,"40909","光文社１３","システムインテグレーション崩壊","斎藤昌義","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5226/9784774165226.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (14,"商品説明だよだよ１４","めもめも１４",4,4.2,"http://books.rakuten.co.jp/rb/12746869/",1000,"42005","光文社１４","AngularJSアプリケーション開発ガイド","ブラッド・グリーン/シヤム・セシャドリ","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6679/9784873116679.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (15,"商品説明だよだよ１５","めもめも１５",21,5,"http://item.rakuten.co.jp/book/11753651/",2000,"40909","光文社１５","失恋、旅行、パリ。 桐谷美玲ファースト写真集","桐谷美玲","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1494/9784062191494.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (16,"商品説明だよだよ１６","めもめも１６",21,5,"http://item.rakuten.co.jp/book/11753651/",2000,"40909","光文社１６","Love Scenes","篠崎愛","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0964/9784096820964.jpg?_ex=200x200")');
+                                tx.executeSql('INSERT INTO TestTable VALUES (17,"商品説明だよだよ１７","めもめも１７",21,5,"http://item.rakuten.co.jp/book/11753651/",2000,"40909","光文社１７","リーダブルコード","ダスティン・ボズウェル/トレバー・フォシェ","http://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/5658/9784873115658.jpg?_ex=200x200")');
+                            }, 
+                            function(){
+                                // 失敗時
+                            }, 
+                            function(){
+                                // 成功時
+                            }
+                        );
+                    }else{
+                        console.log('exist db');            
+                    }
+                    console.log('End createDatabase');
+                    resolve();
+                },0);
+            });
+        };
+
+        // 検索
+        var selectDatabase = function(){
+            return new Promise(function(resolv,reject){
+                setTimeout(function(){
+                    console.log('Start selectDatabase');
+                    var db = window.openDatabase("Database","1.0","TestDatabase",200000);
+                    db.transaction(
+                        function(transaction){
+                            transaction.executeSql('SELECT * FROM TestTable', [], querySuccess, errorCB);
+                        }, 
+                        function(){
+                            // 失敗時
+                        }, 
+                        function(){
+                            // 成功時
+                        }
+                    );                    
+                    console.log('End selectDatabase');
+                },0);
+                
+                var querySuccess = function(tx,results){
+                    console.log('Start query');
+                    // TODO:リストへの値引き渡し（result→JSON変換）
+                    var len = results.rows.length;                    
+                    jsonString = '[';
+                    
+                    for (var i=0; i<len; i++){
+                        jsonString += JSON.stringify(results.rows.item(i));                
+                        if(i!==len-1){
+                            jsonString += ',';
+                        }
+                    }
+                    
+                    jsonString += ']';
+                    setData(JSON.parse(jsonString));
+                    $scope.testdata = testdata;
+                    $scope.$apply();
+                    console.log('End query');
+                    resolve();                    
+                };
+                
+                var errorCB = function(err) {
+                    console.log("Error occured while executing SQL: "+err.code);
+                }
+            });
+        };
+        
+        createDatabase().then(selectDatabase);
+        
+        // リストのバインド  
         // $scope.insertList = function(){
         //     $scope.testdata.push({name:"a",author:"b"});
         // }
         
-        $scope.showDetail = function(index,pageType){ // 3
+        $scope.showDetail = function(index,pageType){ // 
             selectedItem = index;
             // var selectedItem = Data.Items[index];
             // Data.selectedItem = selectedItem;
@@ -70,11 +156,12 @@
             var options = {
                 animation: 'slide', // アニメーションの種類
                 onTransitionEnd: function() {
-                dialInit();
+                    dialInit();
                     // colorChange();
-                } // アニメーションが完了した際によばれるコールバック
+                }   // アニメーションが完了した際によばれるコールバック
             };
             if(pageType == 1){
+                console.log('promise after');
                 myNavigator.pushPage('detail.html',options);
             } else {
                 myNavigator.pushPage('detail_2.html',options);
@@ -88,7 +175,7 @@
                     //           "Format: " + result.format + "\n" +
                     //           "Cancelled: " + result.cancelled);
                     $.get("https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522",
-                      { applicationId: "1013102338996637364", isbnjan: result.text },
+                      { applicationId: API_KEY, isbnjan: result.text },
                       function(data){
                         //リクエストが成功した際に実行する関数
                         var temp = new Object();
@@ -117,44 +204,8 @@
         }
         
         ons.ready(function() {
-            // var carousel = document.getElementById("carousel");
-            // document.addEventListener('ons-carousel:postchange', function(event){
-            //     // alert('postChange test');
-            //     // console.log(carousel.getActiveCarouselItemIndex());
-            //     
-            //     if(carouselId == 2){
-            //         $("#bar-text").animate({opacity: "0"}, 0).text("読みたいリスト");
-            //         $("#bar-text").animate({opacity: "1"}, 200);
-            //         $(".flexible-color").css({"background-color":"#2196F3","border-color":"#2196F3"});
-            //         
-            //         var box = document.getElementById("dial-icon-parent-color");
-            //         box.style.backgroundColor = "#2196F3";
-            //         box.style.borderColor = "#2196F3";
-            //         
-            //         carouselId = 1;
-            //     }else{
-            //         // alert('What,up, man?');
-            //         $("#bar-text").animate({opacity: "0"}, 0).text("読んだリスト");
-            //         $("#bar-text").animate({opacity: "1"}, 200);
-            //         $(".flexible-color").css({"background-color":"#4DB6AC","border-color":"#4DB6AC"});
-            //         
-            //         var box = document.getElementById("dial-icon-parent-color");
-            //         box.style.backgroundColor = "#4DB6AC";
-            //         box.style.borderColor = "#4DB6AC";
-            //         
-            //         carouselId = 2;
-            //     }
-            //     
-            //     // navigationを使うとgetActiveCarouselItemIndexが値を返さない
-            //     // if(carousel.getActiveCarouselItemIndex() == 0){
-            //     //     $("#bar-text").animate({opacity: "0"}, 0).text("読みたいリスト");
-            //     //     $("#bar-text").animate({opacity: "1"}, 200);
-            //     // }else{
-            //     //     // alert('What,up, man?');
-            //     //     $("#bar-text").animate({opacity: "0"}, 0).text("読んだリスト");
-            //     //     $("#bar-text").animate({opacity: "1"}, 200);
-            //     // }
-            // });
+            // $scope.testdata = testdata;
+            // $scope.$apply();
 
         });
     });
